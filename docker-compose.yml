@@ -14,3 +14,8 @@ services:
     networks:
       default:
         aliases: [repository-api]
+
+  api-designer:
+    build: docker/api-designer
+    ports:
+      - "3000:3000"
