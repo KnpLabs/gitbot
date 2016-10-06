@@ -19,3 +19,9 @@ services:
     build: docker/api-designer
     ports:
       - "3000:3000"
+
+  rabbitmq:
+    build: docker/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
