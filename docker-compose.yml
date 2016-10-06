@@ -11,6 +11,10 @@ services:
     build: apps/repository-api
     env_file: apps/repository-api/.env
     command: ["dev-app"]
+    ports:
+      - "80:80"
+    volumes:
+      - "./apps/repository-api/:/usr/src/app/"
     networks:
       default:
         aliases: [repository-api]

@@ -3,6 +3,9 @@ const morgan = require('morgan');
 const errorhandler = require('errorhandler');
 const mongoose = require('mongoose');
 const logger = require('tracer').colorConsole();
+const bodyParser = require('body-parser');
+
+import router from './Router';
 
 export default class App {
   constructor(config) {
@@ -16,6 +19,9 @@ export default class App {
     mongoose.connect(`${this._config.mongo.uri}/${this._config.mongo.dbname}`);
 
     this._express.use(morgan('combined'));
+    this._express.use(bodyParser.urlencoded({ extended: true }));
+    this._express.use(bodyParser.json());
+    this._express.use(router());
     this._express.use(errorhandler()); // Should be last
   }
 
