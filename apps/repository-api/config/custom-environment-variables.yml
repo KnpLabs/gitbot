@@ -1,0 +1,5 @@
+httpPort: HTTP_PORT
+
+mongo:
+  uri: MONGO_URI
+  dbname: MONGO_DBNAME

@@ -1,0 +1,5 @@
+httpPort: 80
+
+mongo:
+  uri: mongodb://mongodb
+  dbname: repositories

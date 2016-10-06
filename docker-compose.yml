@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  mongo:
+    build: docker/mongodb/
+    networks:
+      default:
+        aliases: [mongodb]
+
+  repository-api:
+    build: apps/repository-api
+    env_file: apps/repository-api/.env
+    command: ["dev-app"]
+    networks:
+      default:
+        aliases: [repository-api]
