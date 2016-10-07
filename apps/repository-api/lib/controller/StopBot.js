@@ -1,13 +1,15 @@
 import {default as Store, NotFoundError} from '../service/Store';
 import HookManager from '../service/HookManager';
 
-export default function StartBot(req, res, next) {
+export default function StopBot(req, res, next) {
   const name = req.params.name;
 
   Store
     .find(name)
     .then((repository) => {
-      HookManager.createHook(repository);
+      HookManager.deleteHook(repository);
+      delete repository.hookId;
+      repository.save();
 
       res.status(201).end();
     })
