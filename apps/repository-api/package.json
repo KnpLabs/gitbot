@@ -16,6 +16,7 @@
     "config": "^1.21.0",
     "errorhandler": "^1.4.3",
     "express": "^4.14.0",
+    "github": "^3.1.1",
     "js-yaml": "^3.6.1",
     "mongoose": "^4.6.3",
     "morgan": "^1.7.0",

@@ -10,12 +10,18 @@ export default class Store {
     ;
   }
 
-  static find(repository) {
+  static find(name) {
     return Repository
-      .findOne({name: repository.name})
+      .findOne({name})
       .then((repository) => {
+        if (null === repository) {
+          throw new NotFoundError({ name });
+        }
+
         return repository;
       })
     ;
   }
 }
+
+export class NotFoundError extends Error {};
