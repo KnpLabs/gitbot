@@ -3,21 +3,15 @@ version: '2'
 services:
   mongo:
     build: docker/mongodb/
-    networks:
-      default:
-        aliases: [mongodb]
+    networks: { default: { aliases: [mongodb] } }
 
   repository-api:
     build: apps/repository-api
     env_file: apps/repository-api/.env
     command: ["dev-app"]
-    ports:
-      - "80:80"
     volumes:
       - "./apps/repository-api/:/usr/src/app/"
-    networks:
-      default:
-        aliases: [repository-api]
+    networks: { default: { aliases: [repository-api] } }
 
   api-designer:
     build: docker/api-designer
@@ -29,3 +23,19 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+
+  gh-hook:
+    build: apps/gh-hook
+    command: ["dev-app"]
+    env_file: apps/gh-hook/.env
+    volumes:
+      - "./apps/gh-hook/:/usr/src/app/"
+    networks: { default: { aliases: [gh-hook] } }
+
+  nginx:
+    build: docker/nginx
+    volumes:
+      - "./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf"
+    ports:
+      - "80:80"
+    networks: { default: { aliases: [nginx] } }
