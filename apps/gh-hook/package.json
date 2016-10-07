@@ -1,0 +1,32 @@
+{
+  "name": "gh-hook",
+  "version": "0.1.0",
+  "description": "",
+  "main": "bin/app.js",
+  "scripts": {
+    "app": "./node_modules/.bin/babel-node bin/app.js",
+    "dev-app": "./node_modules/.bin/nodemon --exec npm run app"
+  },
+  "author": "KnpLabs",
+  "license": "MIT",
+  "dependencies": {
+    "amqp": "^0.2.6",
+    "babel-cli": "^6.16.0",
+    "babel-preset-es2015-node": "^6.1.1",
+    "body-parser": "^1.15.2",
+    "config": "^1.21.0",
+    "errorhandler": "^1.4.3",
+    "express": "^4.14.0",
+    "js-yaml": "^3.6.1",
+    "morgan": "^1.7.0",
+    "tracer": "^0.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015-node"
+    ]
+  }
+}
