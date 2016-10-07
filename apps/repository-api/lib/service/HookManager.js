@@ -1,5 +1,6 @@
+import {default as Store} from './Store';
+
 const github = require('github')();
-const logger = require('tracer').console();
 
 export default class HookManager {
   static createHook(repository) {
@@ -9,7 +10,6 @@ export default class HookManager {
     });
 
     const [user, repositoryName] = repository.name.split('/');
-    logger.debug(user, repositoryName);
 
     github.repos.createHook({
       user: user,
@@ -21,13 +21,30 @@ export default class HookManager {
       },
       active: true,
       events: ["*"]
-    }).then(() => {
-      logger.debug('test');
     })
-      .catch(err => { logger.debug(err); });
+    .then(response => {
+      repository.hookId = response.id;
+      repository.save();
+    })
+    .catch(err => { logger.debug(err); });
   }
 
-  static deleteHook() {
+  static deleteHook(repository) {
+    if (!'hookId' in repository) {
+      return;
+    }
 
+    github.authenticate({
+      type: "token",
+      token: repository.token
+    });
+
+    const [user, repositoryName] = repository.name.split('/');
+
+    github.repos.deleteHook({
+      user: user,
+      repo: repositoryName,
+      id: repository.hookId
+    })
   }
 }
