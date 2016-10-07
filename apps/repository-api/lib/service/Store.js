@@ -9,4 +9,13 @@ export default class Store {
       })
     ;
   }
+
+  static find(repository) {
+    return Repository
+      .findOne({name: repository.name})
+      .then((repository) => {
+        return repository;
+      })
+    ;
+  }
 }
