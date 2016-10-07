@@ -1,0 +1,9 @@
+httpPort: 80
+
+amqp:
+  host: rabbitmq
+  port: 5672
+  user: guest
+  password: guest
+  vhost: '/'
+

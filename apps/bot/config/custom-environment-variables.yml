@@ -1,0 +1,9 @@
+httpPort: HTTP_PORT
+
+amqp:
+  host: AMQP_HOST
+  port: AMQP_PORT
+  user: AMQP_USER
+  password: AMQP_PASS
+  vhost: AMQP_VHOST
+

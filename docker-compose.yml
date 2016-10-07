@@ -32,6 +32,14 @@ services:
       - "./apps/gh-hook/:/usr/src/app/"
     networks: { default: { aliases: [gh-hook] } }
 
+  bot:
+    build: apps/bot
+    command: ["dev-app"]
+    env_file: apps/bot/.env
+    volumes:
+      - "./apps/bot/:/usr/src/app/"
+    networks: { default: { aliases: [bot] } }
+
   nginx:
     build: docker/nginx
     volumes:

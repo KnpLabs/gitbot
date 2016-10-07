@@ -3,7 +3,7 @@ import Repository from '../model/Repository';
 export default class Store {
   static createOrUpdate(repository) {
     return Repository
-      .findOneAndUpdate({name: repository.name}, {name: repository.name, token: repository.token}, {upsert: true})
+      .findOneAndUpdate({name: repository.name.toLowerCase()}, {name: repository.name.toLowerCase(), token: repository.token}, {upsert: true})
       .then(() => {
         return repository;
       })
@@ -12,7 +12,7 @@ export default class Store {
 
   static find(name) {
     return Repository
-      .findOne({name})
+      .findOne({name: name.toLowerCase()})
       .then((repository) => {
         if (null === repository) {
           throw new NotFoundError({ name });

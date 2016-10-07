@@ -1,6 +1,7 @@
-import {default as Store} from './Store';
-
 const github = require('github')();
+const logger = require('tracer').colorConsole();
+
+import {default as Store} from './Store';
 
 export default class HookManager {
   static createHook(repository) {
@@ -23,6 +24,8 @@ export default class HookManager {
       events: ["*"]
     })
     .then(response => {
+      logger.info(`Hook ${response.id} created.`);
+
       repository.hookId = response.id;
       repository.save();
     })
