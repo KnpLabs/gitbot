@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 function removeInternalFields(doc, ret, options) {
   delete ret._id;
   delete ret.name;
+  delete ret.__v;
 
   return ret;
 }
