@@ -6,6 +6,7 @@ const logger = require('tracer').colorConsole();
 const bodyParser = require('body-parser');
 
 import router from './Router';
+import HookManager from './service/HookManager';
 
 export default class App {
   constructor(config) {
@@ -21,7 +22,7 @@ export default class App {
     this._express.use(morgan('combined'));
     this._express.use(bodyParser.urlencoded({ extended: true }));
     this._express.use(bodyParser.json());
-    this._express.use(router());
+    this._express.use(router(new HookManager(this._config.hookUrl)));
     this._express.use(errorhandler()); // Should be last
   }
 

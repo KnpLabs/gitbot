@@ -1,4 +1,5 @@
 httpPort: HTTP_PORT
+hookUrl: HOOK_URL
 
 mongo:
   uri: MONGO_URI

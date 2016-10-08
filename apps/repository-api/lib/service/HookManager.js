@@ -4,7 +4,11 @@ const logger = require('tracer').colorConsole();
 import {default as Store} from './Store';
 
 export default class HookManager {
-  static createHook(repository) {
+  constructor(hookUrl) {
+    this._hookUrl = hookUrl;
+  }
+
+  createHook(repository) {
     github.authenticate({
       type: "token",
       token: repository.token
@@ -17,7 +21,7 @@ export default class HookManager {
       repo: repositoryName,
       name: "web",
       config: {
-        url: "http://gitbot.antoinelelaisant.ultrahook.com/hook",
+        url: this._hookUrl,
         "content_type": "json"
       },
       active: true,
@@ -29,11 +33,11 @@ export default class HookManager {
       repository.hookId = response.id;
       repository.save();
     })
-    .catch(err => { logger.debug(err); });
+    .catch(err => { logger.debug(this._hookUrl, err); });
   }
 
-  static deleteHook(repository) {
-    if (!'hookId' in repository) {
+  deleteHook(repository) {
+    if (false === ('hookId' in repository)) {
       return;
     }
 

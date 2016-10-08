@@ -1,6 +1,11 @@
 .PHONY: build install up start
 
-FIG=docker-compose
+FIG?=docker-compose
+CONTAINER?=
+
+ifneq (,$(C))
+	CONTAINER=$(C)
+endif
 
 build:
 	$(FIG) build
@@ -10,9 +15,14 @@ install:
 	for file in apps/**/package.json; do (npm install); done
 
 up:
-	$(FIG) up -d --no-build
+	$(FIG) up -d --no-build $(CONTAINER)
 
 start: up
 
+stop:
+	$(FIG) stop $(CONTAINER)
+
+restart: stop up
+
 logs:
-	$(FIG) logs
+	$(FIG) logs -f $(CONTAINER)

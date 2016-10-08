@@ -1,22 +1,28 @@
 import {default as Store, NotFoundError} from '../service/Store';
 import HookManager from '../service/HookManager';
 
-export default function StartBot(req, res, next) {
-  const name = req.params.name;
+export default class StartBot {
+  constructor(manager) {
+    this._manager = manager;
+  }
 
-  Store
-    .find(name)
-    .then((repository) => {
-      HookManager.createHook(repository);
+  handleRequest(req, res, next) {
+    const name = req.params.name;
 
-      res.status(201).end();
-    })
-    .catch((err) => {
-      if (err instanceof NotFoundError) {
-        return res.status(404).end();
-      }
+    Store
+      .find(name)
+      .then((repository) => {
+        this._manager.createHook(repository);
 
-      next(err);
-    })
-  ;
+        res.status(201).end();
+      })
+      .catch((err) => {
+        if (err instanceof NotFoundError) {
+          return res.status(404).end();
+        }
+
+        next(err);
+      })
+    ;
+  }
 }
