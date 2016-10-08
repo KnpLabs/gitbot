@@ -3,6 +3,7 @@ const amqp = require('amqp');
 const EventEmitter = require('events');
 
 import OnIssueOpened from './listener/OnIssueOpened';
+import OnIssueLabeled from './listener/OnIssueLabeled';
 
 export default class Bot {
   constructor(config) {
@@ -34,5 +35,6 @@ export default class Bot {
     });
 
     emitter.on('issues.opened', OnIssueOpened);
+    emitter.on('issues.labeled', OnIssueLabeled);
   }
 }
