@@ -5,10 +5,12 @@ const headers = {
 };
 
 export default function GithubAuthenticator(token) {
-  const github = new GithubApi({headers: {
-    "Accept": "application/vnd.github.inertia-preview+json"
-  }});
-  github.authenticate({type: 'token', token: token});
+  return () => {
+    const github = new GithubApi({headers: {
+      "Accept": "application/vnd.github.inertia-preview+json"
+    }});
+    github.authenticate({type: 'token', token: token});
 
-  return github;
+    return github;
+  };
 }

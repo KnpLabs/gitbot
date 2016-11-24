@@ -3,6 +3,7 @@ const amqp = require('amqp');
 const EventEmitter = require('events');
 
 import OnIssueOpened from './listener/OnIssueOpened';
+import OnIssueClosed from './listener/OnIssueClosed';
 
 export default class Bot {
   constructor(config) {
@@ -29,10 +30,15 @@ export default class Bot {
         logger.info('Queue "issues" is open');
         queue.bind('amq.direct', 'issues');
 
-        queue.subscribe(message => emitter.emit(`issues.${message.action}`, message));
+        queue.subscribe(message => {
+          logger.debug('New message received.');
+
+          emitter.emit(`issues.${message.action}`, message);
+        });
       });
     });
 
     emitter.on('issues.opened', OnIssueOpened);
+    emitter.on('issues.closed', OnIssueClosed);
   }
 }

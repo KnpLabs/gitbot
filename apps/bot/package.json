@@ -18,7 +18,8 @@
     "js-yaml": "^3.6.1",
     "request": "^2.75.0",
     "request-promise-native": "^1.0.3",
-    "tracer": "^0.8.3"
+    "tracer": "^0.8.3",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
